@@ -1,0 +1,5 @@
+certifi==2023.7.22
+colorama==0.4.6
+elastic-transport==8.4.1
+elasticsearch==8.10.1
+urllib3==1.26.17

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch:8.10.2
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.10.2
+    ports:
+      - "5601:5601"

@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# Virtual Environment
+venv/
+env/
+*.env
+
+# IDE or Editor files
+.idea/
+.vscode/
+
+# Compiled Python files
+*.pyc
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python cache
+.pyc
+
+# Logs
+*.log
+
+# Other
+db.sqlite3
+/static/
+/media/
