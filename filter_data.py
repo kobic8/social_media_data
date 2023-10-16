@@ -1,14 +1,35 @@
 import os
 import shutil
+import face_recognition  # pip install face_recognition
+import cv2  # pip install opencv-python
+
+
 
 # Dummy functions: replace these with actual implementations
 def is_relevant_image(image_fn):
-    # Replace with actual implementation
-    return 0.5
+    image = face_recognition.load_image_file(image_fn)
+    face_locations = face_recognition.face_locations(image)
+    score = len(face_locations)  # You can modify how the score is calculated based on your needs
+    return score
 
 def is_relevant_video(video_fn):
-    # Replace with actual implementation
-    return 0.5
+    video_capture = cv2.VideoCapture(video_fn)
+    score = 0
+
+    while True:
+        ret, frame = video_capture.read()
+        if not ret:
+            break
+
+        # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
+        rgb_frame = frame[:, :, ::-1]
+
+        # Find all the faces in the current frame of video
+        face_locations = face_recognition.face_locations(rgb_frame)
+        score += len(face_locations)  # Modify how the score is calculated based on your needs
+
+    video_capture.release()
+    return score
 
 # Main function to filter media files
 def filter_media_files(parent_folder, ref_score):
