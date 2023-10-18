@@ -2,7 +2,7 @@ import os
 import shutil
 import face_recognition  # pip install face_recognition
 import cv2  # pip install opencv-python
-
+import numpy as np
 
 
 # Dummy functions: replace these with actual implementations
@@ -61,8 +61,36 @@ def filter_media_files(parent_folder, ref_score):
                                 os.makedirs(destination_folder)
                             shutil.move(media_path, os.path.join(destination_folder, media_file))
 
+
+def face_bbox(image, face_locations):
+    rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+    # Draw bounding box around each detected face
+    for face_location in face_locations:
+        top, right, bottom, left = face_location
+        cv2.rectangle(rgb_image, (left, top), (right, bottom), (0, 255, 0), 2)
+
+    # Display the image
+    cv2.imshow('Image', rgb_image)
+
+    # Press any key to close the image window
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 # Main execution
+
+
 if __name__ == "__main__":
     parent_folder = "/path/to/your/parent/folder"  # Replace with the path to your parent folder
     ref_score = 0.6  # Replace with your reference score
-    filter_media_files(parent_folder, ref_score)
+    # filter_media_files(parent_folder, ref_score)
+    path_to_toy = '//home/yakovc/Documents/Data/Telegram_Data_Kobic/gazaalannet/2023_10_05/0_20231005221920.jpg'
+    # import face_recognition
+
+    # Load an image
+    image = face_recognition.load_image_file(path_to_toy)
+
+    # Find all face locations in the image
+    face_locations = face_recognition.face_locations(image)
+
+    print("I found {} face(s) in this photograph.".format(len(face_locations)))
+    face_bbox(image, face_locations)
